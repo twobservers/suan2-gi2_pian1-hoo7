@@ -40,4 +40,7 @@ class 分類資料試驗(unittest.TestCase):
 		資料 = self.讀檔案.讀第一頁出來(檔名)
 		self.assertEqual(self.分類資料._這欄是毋是抽籤號次(資料, 4), True)
 		self.assertEqual(self.分類資料._抽籤號次是佗幾个(資料), [4])
-	
+	def test_基隆村里長揣出號次(self):
+		檔名 = os.path.join(self.這馬所在, '..', '2014候選人號次', '07基隆市－到齊', '里長.xls')
+		資料 = self.讀檔案.讀第一頁出來(檔名)
+		self.assertEqual(len(self.分類資料.合資料(資料)), 279)

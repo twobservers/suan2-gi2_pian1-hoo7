@@ -20,8 +20,9 @@ class 分類資料:
 		全部資料 = []
 		for 選區欄, 名欄, 號次欄, 男女欄 in itertools.zip_longest(選區, 名, 號次, 男女):
 			全部資料.extend(self._提出資料(資料, 選區欄, 名欄, 號次欄, 男女欄))
+		return 全部資料
 	def _提出資料(self, 資料, 選區欄, 名欄, 號次欄, 男女欄):
-		資料整理 = []
+		資料整理 = set()
 		for 一筆 in 資料:
 			if self._判斷是毋是里長選區(一筆[選區欄]):
 				選區 = 一筆[選區欄]
@@ -36,8 +37,8 @@ class 分類資料:
 					號次 = -1
 				else:
 					raise RuntimeError('號次有問題!!{0},{1}'.format(名, 一筆[號次欄]))
-				資料整理.append((選區, 名, 號次, 男女))
-		return 資料整理
+				資料整理.add((選區, 名, 號次, 男女))
+		return list(資料整理)
 		
 	def _判斷是毋是里長選區(self, 選區):
 		return self.選區判斷.search(選區.strip()) != None
