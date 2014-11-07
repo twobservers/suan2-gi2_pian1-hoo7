@@ -23,8 +23,8 @@ class 讀檔案:
 			一逝資料 = []
 			for 表資料 in 表格.row_values(第幾逝):
 				if isinstance(表資料, float):
-					一逝資料.append(str(int(表資料)))
+					一逝資料.append(str(int(表資料)).strip())
 				else:
-					一逝資料.append(str(表資料))
+					一逝資料.append(str(表資料).strip())
 				全部資料.append(一逝資料)
 		return 全部資料
