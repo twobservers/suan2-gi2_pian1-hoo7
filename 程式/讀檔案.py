@@ -28,3 +28,15 @@ class 讀檔案:
 					一逝資料.append(str(表資料).strip())
 				全部資料.append(一逝資料)
 		return 全部資料
+	def 讀文字檔(self, 檔名):
+		上長列 = 0
+		for 一逝資料 in open(檔名):
+			割開 = 一逝資料.split()
+			if len(割開) > 上長列:
+				上長列 = len(割開)
+		全部資料 = []
+		for 一逝資料 in open(檔名):
+			全部資料.append(一逝資料.split())
+			while len(全部資料[-1]) < 上長列:
+				全部資料[-1].append('')
+		return 全部資料

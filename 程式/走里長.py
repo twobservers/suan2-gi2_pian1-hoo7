@@ -22,6 +22,15 @@ class 走里長():
 						print(檔名)
 						print(錯誤)
 						raise
+				elif 檔名.endswith('.txt'):
+					try:
+						資料 = _讀檔案.讀文字檔(檔名)
+						if len(資料) > 3:
+							整理資料.extend(_分類資料.合資料(資料))
+					except Exception as 錯誤:
+						print(檔名)
+						print(錯誤)
+						raise
 		return 整理資料
 	def 比對資料(self, 檔案所在, 資料):
 		整理資料 = self._整理資料(檔案所在)
@@ -67,7 +76,7 @@ class 走里長():
 		配對結果.sort()
 		return 配對結果
 	def _是毋是仝人(self, 選委會, 監票系統):
-		if (選委會, 監票系統) in [('黃山田', '林三田'), ('林家珍', '陳瀛洲')]:
+		if (選委會, 監票系統) in [('黃山田', '林三田'), ('林家珍', '陳瀛洲'), ('謝鄭阿玉', '陳美蓮')]:
 			return True
 		著的字 = 0
 		for 字 in 監票系統:
@@ -85,7 +94,7 @@ class 走里長():
 			return True
 		return False
 	def _選區正規化(self, 選區):
-		return 選區.replace('\ueebe', '舘').replace('台', '臺')
+		return 選區.replace('\ueebe', '舘').replace('台', '臺').replace('\ue001', '（石曹）')
 	
 if __name__ == '__main__':
 	_比對里長 = 走里長()
