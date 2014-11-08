@@ -2,6 +2,7 @@ from 程式.分類資料 import 分類資料
 import unittest
 import os
 from 程式.讀檔案 import 讀檔案
+import json
 
 class 分類資料試驗(unittest.TestCase):
 	def setUp(self):
@@ -44,3 +45,11 @@ class 分類資料試驗(unittest.TestCase):
 		檔名 = os.path.join(self.這馬所在, '..', '2014候選人號次', '07基隆市－到齊', '里長.xls')
 		資料 = self.讀檔案.讀第一頁出來(檔名)
 		self.assertEqual(len(self.分類資料.合資料(資料)), 279)
+	def test_臺東縣原住民名有兩逝(self):
+		檔名 = os.path.join(self.這馬所在, '..', '2014候選人號次', '19臺東縣－到齊', '臺東縣村里長.txt')
+		資料 = self.讀檔案.讀文字檔(檔名)
+		答案 = open(os.path.join(self.這馬所在, '資料', '合臺東里長資料.json'))
+		合出來資料 = json.dumps(self.分類資料.合資料(資料))
+# 		print(合出來資料, end='', file=答案)
+		self.assertEqual(合出來資料, 答案.read())
+		

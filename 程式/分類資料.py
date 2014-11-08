@@ -20,10 +20,11 @@ class 分類資料:
 		全部資料 = []
 		for 選區欄, 名欄, 號次欄, 男女欄 in itertools.zip_longest(選區, 名, 號次, 男女):
 			全部資料.extend(self._提出資料(資料, 選區欄, 名欄, 號次欄, 男女欄))
+		全部資料.sort()
 		return 全部資料
 	def _提出資料(self, 資料, 選區欄, 名欄, 號次欄, 男女欄):
 		資料整理 = set()
-		for 一筆 in 資料:
+		for 第幾筆, 一筆 in enumerate(資料):
 			if self._判斷是毋是里長選區(一筆[選區欄]):
 				選區 = 一筆[選區欄]
 				名 = 一筆[名欄]
@@ -35,10 +36,13 @@ class 分類資料:
 					號次 = self._號次轉數字(一筆[號次欄])
 				elif 一筆[號次欄].strip("'") == '':
 					號次 = -1
-				elif 一筆[號次欄].strip()=='死亡':
+				elif 一筆[號次欄].strip() == '死亡':
 					號次 = -1
 				else:
 					raise RuntimeError('號次有問題!!{0},{1}'.format(名, 一筆[號次欄]))
+				if 號次 == -1 and self._判斷是毋是抽籤號次(名): #臺東縣有原住民名
+					號次 = self._號次轉數字(名)
+					名 = ''.join(itertools.chain(資料[第幾筆 - 1], 資料[第幾筆 + 1]))
 				資料整理.add((選區, 名, 號次, 男女))
 		return list(資料整理)
 		
