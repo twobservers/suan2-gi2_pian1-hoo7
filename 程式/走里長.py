@@ -11,7 +11,7 @@ class 走里長():
 		整理資料 = []
 		全部檔名 = _讀檔案.揣出全部的檔案(檔案所在)
 		for 檔名 in 全部檔名:
-			if self.投票 in 檔名 or 檔名 in ['東區.xls', '西區.xls']:
+			if self.投票 in 檔名:
 				if 檔名.endswith('.xls') or 檔名.endswith('.xlsx'):
 					try:
 						資料 = _讀檔案.讀第一頁出來(檔名)
@@ -73,6 +73,8 @@ class 走里長():
 					raise RuntimeError('有問題!!仝一个有濟人對著!!{0},{1},{2}'.format(選區, 選區表名, 選區表目前資料))
 				elif len(選區表目前資料) == 1:
 					配對結果.append((選區表編號, 選區表目前資料[0][0], 選區表目前資料[0][1]))
+				elif len(選區表目前資料) == 0:
+					print('{0}選區的{1},{}，無資料'.format(選區, 選區表編號, 選區表名))
 		配對結果.sort()
 		return 配對結果
 	def _是毋是仝人(self, 選委會, 監票系統):
