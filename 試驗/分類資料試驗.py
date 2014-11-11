@@ -52,4 +52,13 @@ class 分類資料試驗(unittest.TestCase):
 		合出來資料 = json.dumps(self.分類資料.合資料(資料))
 # 		print(合出來資料, end='', file=答案)
 		self.assertEqual(合出來資料, 答案.read())
+	def test_正常臺北里長選區(self):
+		self.assertEqual(self.分類資料._判斷是毋是臺北里長選區('信義區西村里'), True)
+	def test_正常臺北里長候選人(self):
+		self.assertEqual(self.分類資料._臺北里長候選人('(1)彭賴秀琴'), (1, '彭賴秀琴'))
+		self.assertEqual(self.分類資料._臺北里長候選人('(1彭賴秀琴'), (1, '彭賴秀琴'))
+		self.assertEqual(self.分類資料._臺北里長候選人('1)彭賴秀琴'), (1, '彭賴秀琴'))
+		self.assertEqual(self.分類資料._臺北里長候選人('(11彭賴秀琴'), (11, '彭賴秀琴'))
+	def test_無正常臺北里長候選人(self):
+		self.assertEqual(self.分類資料._臺北里長候選人('(彭賴秀琴'), (None, None))
 		

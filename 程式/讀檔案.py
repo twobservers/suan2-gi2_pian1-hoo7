@@ -18,6 +18,7 @@ class 讀檔案:
 		if len(表名) > 1:
 			raise RuntimeError('表超過1頁以上')
 		表格 = 表格檔.sheet_by_name(表名[0])
+		上長長度=0
 		全部資料 = []
 		for 第幾逝 in range(表格.nrows):
 			一逝資料 = []
@@ -27,6 +28,11 @@ class 讀檔案:
 				else:
 					一逝資料.append(str(表資料).strip())
 				全部資料.append(一逝資料)
+				if len(全部資料[-1])>上長長度:
+					上長長度=len(全部資料[-1])
+		for 一筆 in 全部資料:
+			while len(一筆)<上長長度:
+				一筆.append('')
 		return 全部資料
 	def 讀文字檔(self, 檔名):
 		上長列 = 0

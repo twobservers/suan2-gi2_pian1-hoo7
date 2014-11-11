@@ -11,7 +11,8 @@ class 走里長():
 		整理資料 = []
 		全部檔名 = _讀檔案.揣出全部的檔案(檔案所在)
 		for 檔名 in 全部檔名:
-			if self.投票 in 檔名:
+			if self.投票 in 檔名 or\
+					('臺北' in 檔名 and (檔名.endswith('區.xls') or 檔名.endswith('區.xlsx'))):
 				if 檔名.endswith('.xls') or 檔名.endswith('.xlsx'):
 					try:
 						資料 = _讀檔案.讀第一頁出來(檔名)
